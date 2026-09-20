@@ -65,6 +65,17 @@ for index in range(len(document_embeddings)):
 
 
 # 5. Sort by similarity score
+
+# lambda x: x[1]
+# basically means:
+# "For each item, use its second value for sorting."
+# Therefore:
+# results.sort(key=lambda x: x[1], reverse=True)
+# means:
+# Sort results according to the score, from highest to lowest.
+
+# reverse=True means descending order.
+# In sort(), key= expects a function, not the value x[1].
 results.sort(key=lambda x: x[1], reverse=True)
 
 
