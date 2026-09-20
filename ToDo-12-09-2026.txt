@@ -1,0 +1,42 @@
+Roadmap from here
+
+1. Real retrieval (embeddings + vector search)
+
+Generate embeddings for your notes (Ollama supports embedding models like nomic-embed-text, or use sentence-transformers)
+Compute cosine similarity yourself once (numpy, no library) so you feel what's happening
+Then use a real vector store: start with Chroma (simplest, local, no server needed) or FAISS
+Rebuild script 2 as actual RAG: embed query → similarity search → top-k chunks → inject into prompt
+
+2. Chunking & document ingestion
+
+Load real documents (PDF/txt/markdown), split into chunks (fixed-size, then try recursive/semantic chunking)
+Understand chunk-size/overlap tradeoffs — this is where a lot of RAG quality is won or lost
+
+3. Prompt engineering as a discipline
+
+System prompts, few-shot examples, structured output (ask for JSON, validate with Pydantic)
+Function calling / tool use — have the model decide to call a function (weather, calculator, DB lookup)
+
+4. Framework exposure (optional but common in jobs)
+
+Try LangChain or LlamaIndex for one project just to see the abstractions — chains, retrievers, agents — then go back to raw code so you understand what the framework is hiding
+
+5. Agents
+
+Multi-step reasoning loops: model decides an action → tool executes → result fed back → repeat
+Build a tiny ReAct-style agent by hand before using an agent framework
+
+6. Evaluation
+
+How do you know your RAG/chat is actually good? Retrieval metrics (precision@k), answer relevance, hallucination checks. This is the part almost everyone skips and it's a huge differentiator.
+
+7. Fine-tuning in practice
+
+You know SFT theory — now actually fine-tune a small model (LoRA/QLoRA on a 1-3B model) on a custom dataset using something like peft + transformers or unsloth. Local Ollama models won't fine-tune easily; this is where you'll touch Hugging Face directly.
+
+8. Production concerns
+
+Streaming responses (SSE), rate limiting, async Ollama calls (ollama.AsyncClient), conversation summarization for long-running memory, cost/latency tradeoffs if you move to hosted APIs (Anthropic/OpenAI) instead of local Ollama.
+Suggested order if you want one clear next project
+
+Rebuild script 2 with real embeddings + Chroma, done end-to-end. That single project touches chunking, embeddings, vector search, and prompt injection — it's the highest-leverage next step given what you already know.
