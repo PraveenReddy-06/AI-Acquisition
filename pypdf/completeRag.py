@@ -29,25 +29,15 @@ print("Number of pages:", len(reader.pages))
 # ==========================================
 
 words = text.split()
-
 chunk_size = 100
 overlap = 20
-
 chunks = []
-
 start = 0
-
 while start < len(words):
-
     end = start + chunk_size
-
     chunk = words[start:end]
-
     chunks.append(" ".join(chunk))
-
     start = end - overlap
-
-
 print("Number of chunks:", len(chunks))
 
 
