@@ -2,22 +2,23 @@ import chromadb
 import ollama
 from pypdf import PdfReader
 
+
 # -----------------------------
-# 1. Read PDF page by page
+# 1. Read PDF
 # -----------------------------
 
 reader = PdfReader("pypdf/notes.pdf")
-
 chunks = []
-
-chunk_size = 5
-overlap = 2
+chunk_size = 100
+overlap = 20
 chunk_number = 0
+
 for page_number, page in enumerate(reader.pages, start=1):
     page_text = page.extract_text()
     if not page_text:
         continue
     words = page_text.split()
+
     start = 0
     while start < len(words):
         chunk_text = " ".join(
@@ -32,17 +33,11 @@ for page_number, page in enumerate(reader.pages, start=1):
         start = start + chunk_size - overlap
 
 
-# -----------------------------
-# 2. Create IDs
-# -----------------------------
-
-ids = []
-for chunk in chunks:
-    ids.append(f"chunk_{chunk['chunk']}")
+print("Number of chunks:", len(chunks))
 
 
 # -----------------------------
-# 3. Create embeddings
+# 2. Create embeddings
 # -----------------------------
 
 embeddings = []
@@ -54,63 +49,54 @@ for chunk in chunks:
     embeddings.append(
         response["embeddings"][0]
     )
+print("Embeddings created:", len(embeddings))
 
 
 # -----------------------------
-# 4. Create ChromaDB
+# 3. Persistent ChromaDB
 # -----------------------------
 
-client = chromadb.Client()
-collection = client.create_collection(
-    name="mycollection"
+client = chromadb.PersistentClient(
+    path="./chroma_data"
+)
+
+collection = client.get_or_create_collection(
+    name="pdf_documents"
 )
 
 
 # -----------------------------
-# 5. Store metadata
+# 4. Prepare IDs + metadata
 # -----------------------------
 
+ids = []
 metadatas = []
+documents = []
+
 for chunk in chunks:
+    ids.append(
+        f"chunk_{chunk['chunk']}"
+    )
+    documents.append(
+        chunk["text"]
+    )
     metadatas.append({
         "page": chunk["page"],
         "chunk": chunk["chunk"]
     })
-collection.add(
-    documents=[chunk["text"] for chunk in chunks],
+
+
+# -----------------------------
+# 5. Store in ChromaDB
+# -----------------------------
+
+collection.upsert(
     ids=ids,
+    documents=documents,
     embeddings=embeddings,
     metadatas=metadatas
 )
 
 
-# -----------------------------
-# 6. Ask question
-# -----------------------------
-
-question = "how many weeks is this internship?"
-response = ollama.embed(
-    model="nomic-embed-text",
-    input=question
-)
-question_embedding = response["embeddings"][0]
-
-
-# -----------------------------
-# 7. Search ChromaDB
-# -----------------------------
-
-results = collection.query(
-    query_embeddings=[question_embedding],
-    n_results=2
-)
-
-# -----------------------------
-# 8. Display results
-# -----------------------------
-for i in range(2):
-    print("\nRank:", i + 1)
-    print("Score/Distance:", results["distances"][0][i])
-    print("Page:", results["metadatas"][0][i]["page"])
-    print("Chunk:", results["metadatas"][0][i]["chunk"])
-    print("Text:", results["documents"][0][i])
+print("Documents stored in ChromaDB.")
+print("Total documents:", collection.count())

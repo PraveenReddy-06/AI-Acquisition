@@ -11,7 +11,9 @@ class chatbot(BaseModel):
 corpus=[
     "Praveen is a badboy but he is good coder",
     "gireesh is very smart boy",
-    "jasmine love flowers and she is very pretty."
+    "jasmine love flowers and she is very pretty.",
+    "Praveen girlfriend's name is jaanu",
+    "i like the name luna"
 ]
 
 

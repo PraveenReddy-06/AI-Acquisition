@@ -44,16 +44,12 @@ for chunk in chunks:
     )
     embeddings.append(embedding["embeddings"][0])
 
-
-
 question="which vehicle runs on road"
 question_embed=ollama.embed(
     model="nomic-embed-text",
     input=text
 )
 question_embed=question_embed["embeddings"][0]
-
-
 
 client = chromadb.Client()
 collection=client.create_collection(name="mycollection")
