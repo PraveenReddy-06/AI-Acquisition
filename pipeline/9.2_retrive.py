@@ -42,7 +42,6 @@ results = collection.query(
     query_embeddings=[question_embedding],
     n_results=3
 )
-
 # -----------------------------
 # 5. Display retrieved chunks
 # -----------------------------

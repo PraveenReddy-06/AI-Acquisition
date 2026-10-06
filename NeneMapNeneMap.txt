@@ -1,0 +1,265 @@
+
+Phase 1 — RAG fundamentals — DONE
+Python
+ ↓
+FastAPI basics
+ ↓
+Ollama
+ ↓
+Embeddings
+ ↓
+Cosine similarity
+ ↓
+Semantic search
+ ↓
+Top-K
+ ↓
+Chunking
+ ↓
+Chunk overlap
+ ↓
+PDF extraction
+ ↓
+ChromaDB
+ ↓
+Persistent storage
+
+
+
+
+Phase 2 — RAG quality — CURRENT
+
+Metadata
+ ↓
+Citations
+ ↓
+Chunking strategies
+ ↓
+Similarity thresholds
+ ↓
+Hybrid search
+ ↓
+Reranking
+ ↓
+Better context selection
+
+
+
+
+Phase 3 — Advanced RAG
+
+After retrieval quality:
+1. Multi-document RAG
+You'll go from:
+one PDF → RAG
+to:
+100 PDFs
+   ↓
+Vector DB
+   ↓
+Question
+   ↓
+Relevant documents
+   ↓
+Answer
+
+You'll learn document IDs, updating documents, deleting documents, and user-specific documents.
+2. Conversation memory
+Currently:
+User: What is GoRyde?
+AI: GoRyde is...
+
+User: What technologies does it use?
+AI: ???
+
+We'll make the system understand:
+User: What is GoRyde?
+
+User: What technologies does it use?
+                 ↑
+        understands "it"
+
+You'll learn:
+- chat history
+- short-term memory
+- conversation context
+- storing conversations
+3. RAG + FastAPI
+Then turn your Python RAG program into an actual API:
+React / Frontend
+       ↓
+    FastAPI
+       ↓
+     RAG
+   ┌───┴────┐
+   ↓        ↓
+Chroma    Ollama
+   ↓        ↓
+   └───┬────┘
+       ↓
+    Response
+
+You'll build endpoints such as:
+POST /upload
+POST /ask
+GET  /documents
+DELETE /documents/{id}
+
+
+
+
+Phase 4 — Production RAG
+
+Then we'll deal with things real applications need:
+File upload
+ ↓
+Background processing
+ ↓
+Chunking
+ ↓
+Embedding
+ ↓
+Vector DB
+
+You'll learn:
+- asynchronous processing
+- streaming LLM responses
+- error handling
+- logging
+- document management
+- authentication
+- user-specific RAG
+- API security
+- rate limiting
+- caching
+At this point you can build a proper AI backend.
+
+
+
+
+Phase 5 — Frameworks
+
+Only now we'll introduce:
+LangChain
+You'll recognize everything underneath it:
+Your manual code             LangChain
+
+PDF extraction       →       Document Loader
+Chunking             →       Text Splitter
+Embedding            →       Embedding Model
+ChromaDB             →       Vector Store
+Retrieval            →       Retriever
+Prompt               →       Prompt Template
+Ollama               →       LLM
+
+So instead of blindly learning:
+some_langchain_function(...)
+
+
+you'll know exactly what that function is doing internally.
+LlamaIndex
+We'll learn:
+- what it solves
+- document indexing
+- retrieval
+- query engines
+- when to choose LlamaIndex vs LangChain
+
+
+
+Phase 6 — Agents
+
+Then we move beyond RAG.
+Instead of:
+Question
+ ↓
+Search documents
+ ↓
+Answer
+
+you'll build:
+                 Agent
+                   ↓
+             Understand task
+                   ↓
+          ┌────────┼────────┐
+          ↓        ↓        ↓
+        RAG      API      Database
+          ↓        ↓        ↓
+          └────────┼────────┘
+                   ↓
+                 Answer
+
+You'll learn:
+- tool calling
+- function calling
+- agents
+- decision making
+- tool selection
+- agent memory
+
+
+
+Phase 7 — LangGraph
+
+Then we'll build controlled AI workflows:
+Question
+   ↓
+Agent
+   ↓
+Need documents?
+ ┌─┴─┐
+Yes  No
+ ↓    ↓
+RAG  Answer
+ ↓
+Check result
+ ↓
+Final answer
+
+You'll learn why LangGraph is useful when an AI system has multiple steps, decisions, retries, and state.
+
+
+
+Phase 8 — Real AI projects
+
+Finally, we'll combine everything.
+For example:
+AI Document Assistant
+React
+  ↓
+FastAPI
+  ↓
+Authentication
+  ↓
+Document Upload
+  ↓
+PDF Processing
+  ↓
+ChromaDB
+  ↓
+RAG
+  ↓
+Ollama
+  ↓
+Streaming Answer
+  ↓
+Citations
+
+Or:
+AI Agent
+User
+ ↓
+FastAPI
+ ↓
+Agent
+ ├── RAG
+ ├── Database
+ ├── Web/API
+ └── Tools
+ ↓
+LLM
+ ↓
+Response
+
+So your complete learning path is
