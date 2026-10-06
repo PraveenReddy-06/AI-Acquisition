@@ -11,6 +11,7 @@ print("Dot:" ,ans)
 sqa=0
 for i in a:
     sqa += i*i
+    
 sqa=math.sqrt(sqa)
 print("mag a:", sqa)
 
