@@ -1,3 +1,24 @@
+#The problem is that vector databases are optimized for fast retrieval, not perfect relevance judgment.
+# so we just rerank them 
+
+# Why not use the reranker directly?
+# Because reranking is generally more expensive than vector search.
+
+
+#If we have 100,000 chunks:
+# Vector search
+# 100,000 → 20
+# is very fast.
+
+# Then:
+# Reranker
+# 20 → 5
+# is manageable.
+
+# Doing:
+# 100,000 → reranker
+# would be unnecessarily expensive.
+
 import chromadb
 import ollama
 
