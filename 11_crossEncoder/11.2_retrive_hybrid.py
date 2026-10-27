@@ -64,9 +64,7 @@ metadatas = results["metadatas"][0]
 # -----------------------------
 
 pairs = []
-
 for document in documents:
-
     pairs.append([
         question,
         document
@@ -85,17 +83,11 @@ scores = reranker.predict(pairs)
 # -----------------------------
 
 reranked_results = []
-
 for i in range(len(documents)):
-
     reranked_results.append({
-
         "document": documents[i],
-
         "score": float(scores[i]),
-
         "metadata": metadatas[i]
-
     })
 
 
